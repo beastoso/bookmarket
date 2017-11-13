@@ -1,0 +1,37 @@
+{
+  "name": "beastoso-bookmarket",
+  "version": "1.0.1",
+  "description": "An online book trading marketplace",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beastoso/bookmarket"
+  },
+  "homepage": "https://beastoso-bookmarket.herokuapp.com/",
+  "bugs": "https://github.com/beastoso/bookmarket/issues",
+  "keywords": [
+    "MongoDB",
+    "Mongoose",
+    "full stack",
+    "Express",
+    "Node",
+    "javascript"
+  ],
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Simon Carter",
+  "license": "GNU",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^1.2.0",
+    "express": "^4.12.4",
+    "express-session": "^1.11.3",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.1.0",
+    "passport": "^0.3.0",
+    "passport-google-oauth2": "^0.1.6",
+    "request": "^2.83.0",
+    "socket.io": "^2.0.4"
+  }
+}

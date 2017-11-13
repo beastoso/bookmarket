@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Share the love - trade your books with others for others</title>
+		
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<header>
+		<p>&nbsp</p>
+	</header>
+	
+	<body>
+		<div class="container">	
+			<div class="row title-text">
+				<p><i class="fa fa-book"></i> Book Market! <i class="fa fa-shopping-basket"></i></p>
+			</div>
+			<img id="cover" src="/public/img/placeholder.png"/>
+			<br/>
+				
+			<form>
+				<p>
+				<input type="text" name="imageUrl" placeholder="Paste a link to an image of the book cover here"/>
+				<input type="text" name="title" placeholder="title" />
+				<input type="text" name="author" placeholder="author" />
+				<input type="text" name="year" placeholder="year of publication" />
+				<input type="text" name="genre" placeholder="genre/s"/>
+				<textarea name="description" cols="50" rows="8" placeholder="description" ></textarea>
+				</p>
+				<button id="addBtn" class="btn addBtn">Add to market</button>
+			</form>
+			<div id="returnLink">
+				<a href="/">Return to market</a>
+			</div>
+		</div>
+		
+		<div id="notification" class="hidden">
+			<div class="closeBtn"><i class="fa fa-close"></i></div>
+			<div class="message"></div>
+		</div>
+		
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<script type="text/javascript" src="controllers/newController.client.js"></script>
+	</body>
+
+</html>

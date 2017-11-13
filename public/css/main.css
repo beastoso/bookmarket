@@ -1,0 +1,302 @@
+/********* Fonts **********/
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'), url('../fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Roboto Medium'), local('Roboto-Medium'), url('../fonts/Roboto-Medium.ttf') format('truetype');
+}
+
+/****** Main Styling ******/
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	color: #00BCD4;
+	height: 56px;
+	margin: 0 0 14px 0;
+	text-align: center;
+}
+
+header p {
+	margin: 16px 0 5px 0;
+}
+
+header a ~ p {
+	margin: 0;
+	padding: 0;
+	display: inline;
+	color: #ECEFF1;
+	text-align: right;
+}
+
+p {
+	margin: 5px 0 0 0;
+}
+
+
+.menu {
+	text-decoration: none;
+	padding: 6px;
+	margin: 0;
+	color: #727272;
+}
+
+.menu:visited {
+	color: #727272;
+}
+
+.menu:hover {
+	color: #FFA000;
+}
+
+.menu:active {
+	color: #FF630D;
+}
+
+
+#display-name {
+	font-weight: 400;
+}
+
+/****** Login Styling ******/
+
+.login {
+	margin: 50px auto;
+	text-align: center;
+}
+
+#login-btn {
+	width: 225px;
+	padding: 10px;
+	color: red;
+	font-size: 18px;
+	background-color: white;
+	border: 2px solid grey;
+	border-radius: 5px;
+}
+
+
+.title-text { /* Styling for the Clementine.js text */
+	padding: 0;
+	margin: -25px 0 30px 0;
+	font-weight: 500;
+	font-size: 60px;
+	color: #FFA000;
+	text-align: center;
+}
+
+/****** Click Styling ******/
+
+
+.btn {	/* Styling for buttons */
+	color: white;
+	background-color: #00BCD4;
+	display: inline-block;
+	border: 0;
+	font-size: 14px;
+	border-radius: 3px;
+	padding: 10px 5px;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.btn p {
+	margin: 8px 0 0 0;
+	padding: 0;
+}
+
+.btn:focus {	/* Remove outline when hovering over button */
+	outline: none;
+}
+
+.btn:active {	/* Scale the button down by 10% when clicking on button */
+	transform: scale(0.9, 0.9);
+	-webkit-transform: scale(0.9, 0.9);
+	-moz-transform: scale(0.9, 0.9);
+}
+
+
+span {
+	font-weight: 500;
+}
+
+/* body styling */
+.container {
+	margin: 0 auto;
+	padding: 0 20px 20px 20px;
+	width: 700px;
+}
+
+form {
+	text-align: center;
+}
+
+#searchBox {
+	margin: 10px auto;
+	width: 100%;
+	text-align:center;
+}
+
+input[type=text] {
+	height: 28px;
+	font-size: 20px;
+}
+input[type=text], textarea {
+	width: 350px;
+	margin-bottom:5px;
+}
+
+textarea {
+	height: 100px;
+	font-size: 18px
+}
+
+#filterBtn {
+	width: 50px;
+	font-size: 18px;
+	padding: 7px;
+}
+
+.addBtn {
+	height: 35px;
+	font-size: 18px;
+	padding: 0px 10px 0px 10px;
+}
+
+
+#recommend, #notification {
+	z-index: 2;
+	left:35%;
+	width: 400px;
+	margin: 0 auto;
+	position: fixed;
+	border: 5px solid rgba(112,112,112,0.5);
+	border-radius: 15px;
+	background-clip: padding-box;
+	background-color: white;
+	text-align:center;
+	padding: 10px;
+}
+
+.closeBtn {
+	float: right;
+	padding: 5px;
+	cursor: pointer;
+}
+
+.hidden {
+	display:none;
+}
+
+.bookTile, .bookRollover {
+	top: 0; 
+    left: 0;
+}
+
+.bookName {
+	font-weight: bold;
+}
+
+.bookAuthor { 
+	font-style: italic;	
+}
+
+.bookRollover {
+	position: absolute;
+    z-index: 2;
+	background-color: rgba(192,192,192, 0.5);
+	padding: 20px;
+	height: 140px;
+	width:80px;
+}
+
+.bookRollover button{
+	font-size: 28px;
+	cursor: pointer;
+	width: 80px;
+	margin: 5px 0px 10px 0px;
+}
+
+.book {
+	display: inline-block;
+	width: 120px;
+	position: relative;
+	margin: 5px 8px 5px 8px;
+}
+
+.bookImage {
+	height: 180px;
+	max-width: 150px;
+}
+
+.book .bookName, .book .bookAuthor {
+	text-align:center;
+}
+
+#tradeBtn, #recommendBtn {
+	width: 30%;
+	font-size: 20px;
+}
+
+#returnLink {
+	margin-top: 30px;
+	width: 100%;
+	text-align: center;
+}
+
+label {
+	width: 150px;
+	display:inline-block;
+}
+
+#cover {
+	margin: 20px auto;
+}
+
+#loginLink {
+	margin: 50px auto;
+}
+
+.removeBtn {
+	background-color: white;
+	color: red;
+	border: 2px solid red;
+	border-radius: 5px;
+	padding: 4px;
+}
+
+.request, .recommendation {
+	padding-left: 20px;
+}
+
+
+
+.slideIn {
+	display: block;
+    top: -100px;
+    -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 2s forwards;
+    animation-delay: 1s;
+}
+
+@-webkit-keyframes slide {
+    100% { top: 250px; }
+}
+
+@keyframes slide {
+    100% { top: 250px; }
+}

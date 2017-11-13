@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Share the love - trade your books with others for others</title>
+		
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	</head>
+	
+	<header>
+		<p>	Welcome <span id="name"></span>!
+			<a id="loginBtn" class="menu" href="/login">Login</a>
+			<a href="/" class="menu">Market</a>
+			<a id="profileBtn" class="menu" href="/profile" style="display:none;">My Profile</a>
+			<a id="logoutBtn" class="menu" href="/logout" style="display:none;">Logout</a>
+		</p>
+	</header>
+
+	<body>
+		<div class="container">	
+			<div class="row title-text">
+				<p><i class="fa fa-book"></i> Book Market! <i class="fa fa-shopping-basket"></i></p>
+			</div>
+			<div id="bookDetail">
+				<img id="cover" src="/public/img/placeholder.png"/>
+				<br/>
+				<label for="title">Title</label>
+				<span id="title"></span>
+				<br/>
+				<label for="author">Author</label>
+				<span id="author"></span>
+				<br/>
+				<label for="year">Published</label>
+				<span id="year"></span>
+				<br/>
+				<label for="genre">Genre</label>
+				<span id="genre"></span>
+				<br/>
+				<label for="description">Description</label>
+				<p id="description"/></p>
+				<br/>
+				<label for="owner">Currently held by</label>
+				<span id="owner"/></span>
+			</div>
+			<br/>
+			<p>
+				<button id="tradeBtn" class="btn"><i class="fa fa-handshake-o"></i> Request trade</button> <button id="recommendBtn" class="btn"><i class="fa fa-bullhorn"></i> Recommend</button>
+			</p>
+			<br/>
+			<div id="returnLink">
+				<a href="/">Return to market</a>
+			</div>
+		</div>
+		
+			<div id="notification" class="hidden">
+				<div class="closeBtn"><i class="fa fa-close"></i></div>
+				<div class="message"></div>
+			</div>
+			
+			<div id="recommend" class="hidden">
+				<div class="closeBtn"><i class="fa fa-close"></i></div>
+				<p>
+					Enter the email address of the person 
+					<br/>
+					you want to recommend this book to:
+				</p>
+				<p>
+				<input type="hidden" name="recommendationBookId" />
+				<input type="text" name="recommendationEmail" placeholder="email" />
+				</p><br/>
+				<button id="sendBtn">Send</button>
+			</div>
+		
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+		<script type="text/javascript" src="/common/ajax-functions.js"></script>
+		<script type="text/javascript" src="/controllers/viewController.client.js"></script>
+	</body>
+
+</html>

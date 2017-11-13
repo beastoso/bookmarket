@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Share the love - trade your books with others for others</title>
+		
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	</head>
+	
+	<header>
+		<p>	Welcome <span id="name"></span>!
+			<a href="/" class="menu">Market</a>
+			<a id="loginBtn" class="menu" href="/login">Login</a>
+			<a id="logoutBtn" class="menu" href="/logout" style="display:none;">Logout</a>
+		</p>
+	</header>
+
+	<body>
+		<div class="container">	
+			<div class="row title-text">
+				<p><i class="fa fa-book"></i> Book Market! <i class="fa fa-shopping-basket"></i></p>
+			</div>
+			<div class="row">
+				<form>
+					<input type="text" name="displayName" placeholder="display name" />
+					<input type="text" name="fullName" placeholder="full name" />
+					<input type="text" name="city" placeholder="city" />
+					<input type="text" name="state" placeholder="state"/>
+					<input type="text" name="country" placeholder="country" />
+					<br />
+					<button id="saveBtn" class="btn" />Save changes</button>
+				</form>
+			</div>
+			<div class="row">
+				<h2>My books:</h2>
+				<div id="myBooks">
+					<div id="dummyBook" class="book" style="display:none;">
+						<div class="bookRollover" style="display:none;">
+							<button class="bookLink" title="View detail"><i class="fa fa-eye"></i></button>
+							<button class="bookRecommend" title="Recommend to a friend"><i class="fa fa-bullhorn"></i></button>
+						</div>
+						<div class="bookTile">
+							<img class="bookImage" src="/public/img/placeholder.png" />
+							<br/>
+							<div class="bookName"></div> 
+							<div class="bookAuthor"></div>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<button id="addBookBtn" class="addBtn btn"><i class="fa fa-plus"></i> Add book</button>
+			</div>
+			<div id="trading" class="row">
+				<h2>Trading</h2>
+				<h3>Requests I made:</h3>
+				<div id="myRequestList">
+					<div id="dummyUserRequest" class="request" style="display:none;">
+						<span class="requestDate"></span> : you requested <a class="requestLink"></a> for trade - <span class="requestStatus"></span>
+						<button class="removeBtn btn">Remove</button>
+					</div>
+				</div>
+				<br/>
+				<h3>Requests for my books:</h3>
+				<div id="bookRequestList">
+					<div id="dummyBookRequest" class="request" style="display:none;">
+						<span class="requestDate"></span> : <span class="requestUserName"></span> (<span class="requestUserEmail"></span>) wants to trade for <a class="requestLink"></a>
+						<button class="acceptBtn btn">Accept</button>
+					</div>
+				</div>
+			</div>
+			<div id="recommendations" class="row">
+				<h2>Recommendations:</h2>
+				<div id="recommendationList">
+					<div id="dummyRecommendation" class="recommendation" style="display:none;">
+						<span class="recommendationDate"></span> : <span class="recommendationUserName"></span> recommended you read <a class="recommendationLink"></a>.
+					</div>
+				</div>
+			</div>
+			<div id="returnLink" class="row">
+				<a href="/">Return to market!</a>
+			</div>
+		</div>
+		
+		<div id="notification" style="display:none;">
+			
+		</div>
+		
+		<div id="recommend" class="hidden">
+			<div class="closeBtn"><i class="fa fa-close"></i></div>
+			<p>
+				Enter the email address of the person 
+				<br/>
+				you want to recommend this book to:
+			</p>
+			<p>
+			<input type="hidden" name="recommendationBookId" />
+			<input type="text" name="recommendationEmail" placeholder="email" />
+			</p><br/>
+			<button id="sendBtn">Send</button>
+		</div>
+		
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<script type="text/javascript" src="controllers/userController.client.js"></script>
+	</body>
+
+</html>
