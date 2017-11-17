@@ -266,6 +266,29 @@ var self = module.exports = {
             }
         );
     },
+    removeTradeRequest: function(userId, requesterId, bookId, callback) {
+        Trade.remove(
+            { 
+                request_user_id: new mongo.ObjectId(requesterId),
+                owner_user_id: new mongo.ObjectId(userId),
+                book_id: new mongo.ObjectId(bookId)
+            }, function(err, status) {
+                if (err) return callback(err);
+                callback(null, true);
+            }
+        );
+    },
+    removeRecommendation: function(userId, bookId, callback) {
+        Recommendation.remove(
+            { 
+                recommendee_user_id: new mongo.ObjectId(userId),
+                book_id: new mongo.ObjectId(bookId)
+            }, function(err, status) {
+                if (err) return callback(err);
+                callback(null, true);
+            }
+        );
+    },
     getBookHolder: function(bookId, callback) {
         BookOwner.findOne(
             {

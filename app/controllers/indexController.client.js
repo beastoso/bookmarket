@@ -6,7 +6,7 @@ var userLoggedIn = false;
 var userUrl = appUrl + '/api/user';
 var booksUrl = appUrl + "/api/books";
 var tradeUrl = appUrl + "/api/trade/request";
-var recommendationUrl = appUrl + "/api/user/recommendation";
+var recommendationUrl = appUrl + "/api/recommendation";
 var webSocketConnection = false;
 var userId = false;
 

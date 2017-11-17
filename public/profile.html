@@ -58,15 +58,15 @@
 				<div id="myRequestList">
 					<div id="dummyUserRequest" class="request" style="display:none;">
 						<span class="requestDate"></span> : you requested <a class="requestLink"></a> for trade - <span class="requestStatus"></span>
-						<button class="removeBtn btn">Remove</button>
+						<button class="removeBtn btn" title="cancel"><i class="fa fa-remove"></i></button>
 					</div>
 				</div>
 				<br/>
 				<h3>Requests for my books:</h3>
 				<div id="bookRequestList">
 					<div id="dummyBookRequest" class="request" style="display:none;">
-						<span class="requestDate"></span> : <span class="requestUserName"></span> (<span class="requestUserEmail"></span>) wants to trade for <a class="requestLink"></a>
-						<button class="acceptBtn btn">Accept</button>
+						<span class="requestDate"></span> : <span class="requestUserName"></span> (<span class="requestUserEmail"></span>) wants to trade for <a class="requestLink"></a> <span class="requestStatus"></span>
+						<button class="acceptBtn btn" title="accept"><i class="fa fa-check"></i></button><button class="removeBtn btn" title="dismiss"><i class="fa fa-remove"></i></button>
 					</div>
 				</div>
 			</div>
@@ -75,6 +75,7 @@
 				<div id="recommendationList">
 					<div id="dummyRecommendation" class="recommendation" style="display:none;">
 						<span class="recommendationDate"></span> : <span class="recommendationUserName"></span> recommended you read <a class="recommendationLink"></a>.
+						<button class="removeBtn btn" title="remove"><i class="fa fa-remove"></i></button>
 					</div>
 				</div>
 			</div>
@@ -83,8 +84,9 @@
 			</div>
 		</div>
 		
-		<div id="notification" style="display:none;">
-			
+		<div id="notification" class="hidden">
+			<div class="closeBtn"><i class="fa fa-close"></i></div>
+			<div class="message"></div>
 		</div>
 		
 		<div id="recommend" class="hidden">

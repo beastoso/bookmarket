@@ -270,18 +270,28 @@ label {
 	margin: 50px auto;
 }
 
-.removeBtn {
+.removeBtn, .acceptBtn {
 	background-color: white;
-	color: red;
-	border: 2px solid red;
 	border-radius: 5px;
 	padding: 4px;
+	margin-left: 2px;
+}
+
+.removeBtn {
+	color: red;
+	border: 1px solid red;
+	padding-left: 6px;
+	padding-right: 6px;
 }
 
 .request, .recommendation {
 	padding-left: 20px;
 }
 
+.acceptBtn {
+	color: green;
+	border: 1px solid green;
+}
 
 
 .slideIn {

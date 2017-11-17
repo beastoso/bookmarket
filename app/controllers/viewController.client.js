@@ -3,7 +3,7 @@
 
 var appUrl = window.location.origin;
 var tradeUrl = appUrl+"/api/trade/request";
-var recommendationUrl = appUrl + "/api/user/recommendation";
+var recommendationUrl = appUrl + "/api/recommendation";
 var userUrl = appUrl + '/api/user';
 
 var userLoggedIn = false;

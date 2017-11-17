@@ -150,15 +150,40 @@ module.exports = function (app, passport) {
 			}
 		});
 		
-	app.route('/api/trade/accept')
+	app.route('/api/trade/resolve')
 		.post(isLoggedIn, function(req, res) {
 			if (req.session.user) {
 				var bookId = req.body.bookId;
-				var requesterId = req.body.requesterId;
-				DBHelper.saveTradeRequest(req.session.user._id, requesterId, bookId, function(err, request) {
-					if (err) return res.send("Could accept trade request");
-					res.json(request);
-				});
+				var requesterId, ownerId;
+				var action = req.body.action;
+				
+				if (req.body.requesterId) {
+					requesterId = req.body.requesterId;
+					ownerId = req.session.user._id;
+				}
+				else if (req.body.ownerId) {
+					requesterId = req.session.user._id;
+					ownerId = req.body.ownerId;
+					
+					if (action == "accept") {
+						return res.json("Invalid action - cannot accept own request");
+					}
+				}
+				else {
+					return res.json("Missing required parameters");
+				}
+				if (action == 'accept') {
+					DBHelper.acceptTradeRequest(ownerId, requesterId, bookId, function(err, request) {
+						if (err) return res.send("Could accept trade request");
+						res.json(request);
+					});
+				}
+				else {
+					DBHelper.removeTradeRequest(req.session.user._id, requesterId, bookId, function(err, request) {
+						if (err) return res.send("Could remove trade request");
+						res.json(request);
+					});
+				}
 			}
 			else {
 				res.json("not logged in");
@@ -185,7 +210,7 @@ module.exports = function (app, passport) {
 			}
 		});
 		
-	app.route('/api/user/recommendation')
+	app.route('/api/recommendation')
 		.get(isLoggedIn, function(req, res) {
 			if (req.session.user) {
 				DBHelper.getRecommendationsForUser(req.session.user._id, function(err, recommendations) {
@@ -211,7 +236,21 @@ module.exports = function (app, passport) {
 			else {
 				res.json("not logged in");
 			}
-		});;
+		});
+		
+	app.route('/api/recommendation/:bookId')
+		.delete(isLoggedIn, function(req, res) {
+			if (req.session.user) {
+				var bookId = req.params.bookId;
+				DBHelper.removeRecommendation(req.session.user._id, bookId, function(rerr, recommendation) {
+					if (rerr) return res.send("Could not remove recommendation");
+					res.json(recommendation);
+				});
+			}
+			else {
+				res.json("not logged in");
+			}
+		});
 
 	app.route('/auth/google')
 		.get(passport.authenticate('google', {

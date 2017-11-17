@@ -35,8 +35,8 @@ function formatDate(dateStr) {
    var userUrl = appUrl + '/api/user';
    var bookUrl = appUrl + '/api/user/books';
    var requestsUrl = appUrl + '/api/trade/requests';
-   var recommendUrl = appUrl + '/api/user/recommendation';
-   var acceptUrl = appUrl + '/api/trade/accept';
+   var recommendUrl = appUrl + '/api/recommendation';
+   var acceptUrl = appUrl + '/api/trade/resolve';
     
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', userUrl, function(data) {
       var userObject = JSON.parse(data);
@@ -160,6 +160,30 @@ function formatDate(dateStr) {
                  var statusElem = newRequestElem.getElementsByClassName("requestStatus")[0];
                  statusElem.textContent = (request.accepted == true ? 'accepted':'pending');
                  
+                 var removeBtn = newRequestElem.getElementsByClassName("removeBtn")[0];
+                 if (request.accepted) {
+                    removeBtn.setAttribute("style","display:none;");
+                 }
+                 else {
+                    removeBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        var parent = e.target.parentElement.parentElement;
+                        parent.parentElement.removeChild(parent);
+                        
+                        var acceptData = {
+                            bookId: request.book_id,
+                            ownerId: request.owner_user_id,
+                            action: 'remove'
+                        }
+                        ajaxFunctions.ajaxPostRequest('POST', acceptUrl, JSON.stringify(acceptData), function(data) {
+                            if (JSON.parse(data) == true) {
+                                getWebSocket().emit('trade-resolve', JSON.stringify({'user_id': request.request_user_id}));
+                                showNotification("Trade refused");
+                            }
+                        });
+                    });
+                 }
+                 
                  userRequestDiv.appendChild(newRequestElem);
               });
           }
@@ -189,21 +213,57 @@ function formatDate(dateStr) {
                      var userEmailElem = newRequestElem.getElementsByClassName("requestUserEmail")[0];
                      userEmailElem.textContent = request.requestUserEmail;
                  }
-                 
                  var acceptBtn = newRequestElem.getElementsByClassName("acceptBtn")[0];
-                 acceptBtn.addEventListener('click', function(e) {
-                     e.preventDefault();
-                     var acceptData = {
-                         bookId: request.book_id,
-                         requesterId: request.request_user_id
-                     }
-                     ajaxFunctions.ajaxPostRequest('POST', acceptUrl, JSON.stringify(acceptData), function(data) {
-                         if (JSON.parse(data) == true) {
-                             getWebSocket().emit('trade-accept', JSON.stringify({'user_id': request.request_user_id}));
-                             showNotification("Trade accepted");
-                         }
-                     });
-                 });
+                 var removeBtn = newRequestElem.getElementsByClassName("removeBtn")[0];
+                 
+                 if (request.accepted) {
+                    acceptBtn.setAttribute("style","display:none;");
+                    removeBtn.setAttribute("style","display:none;");
+                    var status = newRequestElem.getElementsByClassName("requestStatus")[0];
+                     status.textContent = " - Accepted";
+                 }
+                 else {
+                    acceptBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        var bookElem = e.target.parentElement.parentElement;
+                        var accBtn = bookElem.getElementsByClassName("acceptBtn")[0];
+                        accBtn.setAttribute("style","display:none;");
+                        var remBtn = bookElem.getElementsByClassName("removeBtn")[0];
+                        remBtn.setAttribute("style","display:none;");
+                        var status = bookElem.getElementsByClassName("requestStatus")[0];
+                        status.textContent = " - Accepted";
+                        
+                        var acceptData = {
+                            bookId: request.book_id,
+                            requesterId: request.request_user_id,
+                            action: 'accept'
+                        }
+                        ajaxFunctions.ajaxPostRequest('POST', acceptUrl, JSON.stringify(acceptData), function(data) {
+                            if (JSON.parse(data) == true) {
+                                getWebSocket().emit('trade-resolve', JSON.stringify({'user_id': request.request_user_id}));
+                                showNotification("Trade accepted");
+                            }
+                        });
+                    });
+                    removeBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        var parent = e.target.parentElement.parentElement;
+                        parent.parentElement.removeChild(parent);
+                     
+                        var acceptData = {
+                            bookId: request.book_id,
+                            requesterId: request.request_user_id,
+                            action: 'remove'
+                        }
+                        ajaxFunctions.ajaxPostRequest('POST', acceptUrl, JSON.stringify(acceptData), function(data) {
+                            if (JSON.parse(data) == true) {
+                                getWebSocket().emit('trade-resolve', JSON.stringify({'user_id': request.request_user_id}));
+                                showNotification("Trade refused");
+                            }
+                        });
+                    });
+                 }
                  bookRequestDiv.appendChild(newRequestElem);
               });
           }
@@ -219,23 +279,36 @@ function formatDate(dateStr) {
       
       if (recommendationsObject && Array.isArray(recommendationsObject) && recommendationsObject.length > 0) {
           recommendationsObject.forEach(function(recommendation) {
-                 var newRequestElem = document.getElementById("dummyRecommendation").cloneNode(true);
-                 newRequestElem.removeAttribute("id");
-                 newRequestElem.removeAttribute("style");
+                 var newRecommendElem = document.getElementById("dummyRecommendation").cloneNode(true);
+                 newRecommendElem.removeAttribute("id");
+                 newRecommendElem.removeAttribute("style");
                  if (recommendation.date) {
-                     var dateElem = newRequestElem.getElementsByClassName("recommendationDate")[0];
+                     var dateElem = newRecommendElem.getElementsByClassName("recommendationDate")[0];
                      dateElem.textContent = formatDate(recommendation.date);
                  }
                  if (recommendation.title) {
-                     var nameElem = newRequestElem.getElementsByClassName("recommendationLink")[0];
+                     var nameElem = newRecommendElem.getElementsByClassName("recommendationLink")[0];
                      nameElem.setAttribute("href",appUrl+"/view/"+recommendation.book_id);
                      nameElem.textContent = recommendation.title;
                  }
                  if (recommendation.userName) {
-                     var userNameElem = newRequestElem.getElementsByClassName("recommendationUserName")[0];
+                     var userNameElem = newRecommendElem.getElementsByClassName("recommendationUserName")[0];
                      userNameElem.textContent = recommendation.userName;
                  }
-                 recommendationsDiv.appendChild(newRequestElem);
+                 
+                 var removeBtn = newRecommendElem.getElementsByClassName("removeBtn")[0];
+                 removeBtn.addEventListener('click', function(e) {
+                     e.preventDefault();
+                     var parent = e.target.parentElement.parentElement;
+                     parent.parentElement.removeChild(parent);
+                     
+                     var url = recommendUrl+"/"+recommendation.book_id;
+                     
+                     ajaxFunctions.ajaxRequest('DELETE', url, function(data) {
+                         showNotification("recommendation removed");
+                     });
+                 });
+                 recommendationsDiv.appendChild(newRecommendElem);
           });
       }
       else {
@@ -275,7 +348,7 @@ function formatDate(dateStr) {
          bookId: document.querySelector("input[name=recommendationBookId]").value,
          email: document.querySelector("input[name=recommendationEmail]").value
       };
-      ajaxFunctions.ajaxPostRequest('POST', recommendationUrl, JSON.stringify(recommendationData), function(data) {
+      ajaxFunctions.ajaxPostRequest('POST', recommendUrl, JSON.stringify(recommendationData), function(data) {
          var recommendDiv = document.getElementById("recommend");
          recommendDiv.setAttribute("class", "hidden");
       
