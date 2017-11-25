@@ -33,7 +33,7 @@ function showNotification(message) {
      var url = imageField.value;
      if (url && url != "") {
          var image = document.getElementById("cover");
-         image.setAttribute("src",url);
+         image.setAttribute("style","background-image:url('"+url+"');");
      }
   });
 
@@ -62,27 +62,12 @@ function showNotification(message) {
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', userUrl, function(data) {
       var userObj = JSON.parse(data);
-      
-      var loginBtn = document.getElementById("loginBtn");
-      var logoutBtn = document.getElementById("logoutBtn");
-      var profileBtn = document.getElementById("profileBtn");
-      var nameElem = document.getElementById("name");
          
       if (userObj) {
          userId = userObj._id;
          userLoggedIn = true;
-         nameElem.textContent = userObj.name;
-         loginBtn.setAttribute("style","display:none;");
-         profileBtn.removeAttribute("style");
-         logoutBtn.removeAttribute("style");
          
          getWebSocket();
-      }
-      else {
-         nameElem.textContent = "";
-         profileBtn.setAttribute("style","display:none;");
-         logoutBtn.setAttribute("style","display:none;");
-         loginBtn.removeAttribute("style");
       }
       
    }));

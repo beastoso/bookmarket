@@ -264,6 +264,12 @@ label {
 
 #cover {
 	margin: 20px auto;
+	background-image: url('/public/img/placeholder.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 200px;
+	height: 200px;
 }
 
 #loginLink {
